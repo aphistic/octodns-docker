@@ -1,10 +1,16 @@
 #!/bin/bash
 
-REGEX_VERSION='^v([0-9.]+)$'
+echo "Building branch... $SOURCE_BRANCH"
+
+REGEX_VERSION='^v([0-9.]+).*$'
 [[ $SOURCE_BRANCH =~ $REGEX_VERSION ]]
 
+OCTODNS_VERSION=${BASH_REMATCH[1]}
+
+echo "Octodns Version... $OCTODNS_VERSION"
+
 docker build \
-       --build-arg octodns_version=${BASH_REMATCH[1]} \
+       --build-arg octodns_version=$OCTODNS_VERSION \
        -f $DOCKERFILE_PATH \
        -t $IMAGE_NAME \
        .
