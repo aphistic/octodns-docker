@@ -12,6 +12,9 @@ RUN adduser \
     octodns
 RUN pip3 install octodns==${octodns_version}
 
+COPY requirements.txt .
+RUN pip3 install -r requirements.txt
+
 USER octodns:octodns
 
-ENTRYPOINT ["octodns-sync"]
+CMD ["octodns-sync"]
